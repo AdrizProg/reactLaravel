@@ -12,9 +12,10 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->words(3, true), // Nombre aleatorio de 3 palabras
-            'description' => $this->faker->paragraph(5), // Descripción aleatoria de 5 frases
-            'price' => $this->faker->numberBetween(100, 10000), // Precio aleatorio entre 100 y 10000
+            'name' => $this->faker->words(3, true), 
+            'description' => $this->faker->paragraph(5), 
+            'price' => $this->faker->numberBetween(100, 10000), 
+            'image' => $this->faker->imageUrl('https://picsum.photos/200')
         ];
     }
 }

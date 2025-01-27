@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->longText('description');
             $table->integer('price');
+            $table->string('image')->default('https://picsum.photos/200');
             $table->timestamps();
         });
     }
