@@ -15,7 +15,13 @@ const ProductList = () => {
         const fetchProducts = async () => {
             setLoading(true); // Mostrar el estado de carga mientras se realiza la solicitud
             try {
-                const response = await axios.get(`/api/products?page=${page}`);
+                const response = await fetch(`/api/products?page=${page}`);
+
+                if (response.redirected) {
+                    window.location.href = response.url;
+                    return;
+                }
+
                 setProducts(response.data.data); // Asumiendo que los datos están en response.data.data
                 setmetaDatos(response.data);
                 setLoading(false);
@@ -56,7 +62,7 @@ const ProductList = () => {
                 <Pagination
                     count={5}
                     color="secondary"
-                    page={page} 
+                    page={page}
                     onChange={handleChange}
                 />
             </Stack>
