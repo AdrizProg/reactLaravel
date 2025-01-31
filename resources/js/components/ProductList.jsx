@@ -15,9 +15,19 @@ const ProductList = () => {
         const fetchProducts = async () => {
             setLoading(true); // Mostrar el estado de carga mientras se realiza la solicitud
             try {
-                const response = await axios.get(`/api/products?page=${page}`);
-                setProducts(response.data.data); // Asumiendo que los datos están en response.data.data
-                setmetaDatos(response.data);
+                const response = await fetch(`http://reactlaravel.test/api/products?page=${page}`, {
+                    credentials: "include",
+                    });
+
+                if (response.redirected) {
+                    window.location.href = response.url;
+                    return;
+                }
+
+                const data = await response.json();
+                console.log(data.data)
+                setProducts(data.data); // Asumiendo que los datos están en response.data.data
+                setmetaDatos(data);
                 setLoading(false);
             } catch (err) {
                 setError(err.message);
@@ -56,7 +66,7 @@ const ProductList = () => {
                 <Pagination
                     count={5}
                     color="secondary"
-                    page={page} 
+                    page={page}
                     onChange={handleChange}
                 />
             </Stack>
